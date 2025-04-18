@@ -42,8 +42,8 @@ function recalculate() {
         totalCost = duration * 213;
     }
 
-    
-    costLabel.innerHTML = totalCost;
+    costLabel.innerHTML = totalCost.toFixed(2);
+
 }
 
 
@@ -68,10 +68,10 @@ function recalculate() {
 let modelButton = document.getElementById("model-button");
 
 function changeModel() {
-    // Reference to the span where model name is shown
+    
     let modelText = document.getElementById("model-text");
 
-    // Check current model and switch it
+    
     if (modelName === "XYZ") {
         modelName = "CPRG";
         modelText.innerHTML = "Model CPRG";
@@ -80,7 +80,7 @@ function changeModel() {
         modelText.innerHTML = "Model XYZ";
     }
 
-    // Recalculate cost after switching model
+    
     recalculate();
 }
 modelButton.addEventListener("click", changeModel);
@@ -108,21 +108,16 @@ modelButton.addEventListener("click", changeModel);
 let durationButton = document.getElementById("duration-button");
 
 function changeDuration() {
-    // Span where duration is shown
     let durationText = document.getElementById("duration-text");
-
-    // Ask user to input duration
     let userInput = prompt("Enter number of days:");
+    let days = Number(userInput);
 
-    // Convert user input to number and update duration
-    duration = Number(userInput);
-
-    // Show updated duration on the page
-    durationText.innerHTML = duration;
-
-    // Recalculate cost after changing duration
-    recalculate();
+    if (!isNaN(days) && days >= 0) {
+        duration = days;
+        durationText.innerHTML = duration;
+        recalculate();
+    } else {
+        alert("Please enter a valid number.");
+    }
 }
-
-// Attach the function to run on click
 durationButton.addEventListener("click", changeDuration);
